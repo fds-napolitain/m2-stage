@@ -1,5 +1,5 @@
 jupyter==1.0.0
 pandas==1.4.0
-tensorflow==2.8.0
+tensorflow==2.5.0
 tensorflow-addons==0.15.0
 seaborn==0.11.2
