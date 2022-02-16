@@ -26,7 +26,7 @@ list_of_dictionaries = []
 def parse_csv_metadata(metadata):
     with open(metadata) as f:
         header = next(f)
-        if header != None:
+        if header is not None:
             i = 0
             for line in f.readlines():
                 # print(line)

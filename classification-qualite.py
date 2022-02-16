@@ -38,12 +38,15 @@ class CustomDataset:
         self.split = split
         self.img_shape = (img_width, img_height) + (3,)
 
-    def reload(self, batch_size=32):
+    def reload(self, batch_size=32, path=None):
         """
         Charge / recharge le dataset à partir du path dans le constructeur vers celui ci.
-        :param batch_size:
+        :param batch_size: batch size du dataset
+        :param path: chemin du dataset
         :return:
         """
+        if path != None:
+            self.path = path
         self.batch_size = batch_size
         # Crée jeu d'entrainement
         self.train_ds = tf.keras.preprocessing.image_dataset_from_directory(
@@ -81,8 +84,22 @@ class CustomDataset:
         for x, y in self.train_ds:
             for i in range(len(y.numpy())):
                 if y[i].numpy() == 3 and nb > 0:
-                    cv2.imwrite("datasets/Qualite/FaceQual0/generated_" + str(nb) + ".jpg", cv2.cvtColor(_downgrade(x[i], blur, downscale, kernel).numpy(), cv2.COLOR_RGB2BGR))
+                    cv2.imwrite("datasets/Qualite/FaceQual0/generated_" + str(nb) + ".jpg",
+                                cv2.cvtColor(_downgrade(x[i], blur, downscale, kernel).numpy(), cv2.COLOR_RGB2BGR))
                     nb -= 1
+
+    def write(self, path):
+        """
+        Ecrire le datasets sous une forme plus adapte
+        :param path:
+        :return:
+        """
+        class_folders = {i: self.class_names[i] for i in range(len(self.class_names))}
+        for x, y in self.test_dataset:
+            for i in range(len(y)):
+                cv2.imwrite("datasets/Qualite/FaceQual0/generated_" + str(nb) + ".jpg",
+                            cv2.cvtColor(_downgrade(x[i], blur, downscale, kernel).numpy(), cv2.COLOR_RGB2BGR))
+                class_folders[y.numpy()]
 
 
 class CustomModel:
@@ -96,10 +113,10 @@ class CustomModel:
         self.loss0 = None
         self.dataset = dataset
         inputs = tf.keras.Input(shape=(dataset.img_width, dataset.img_height, 3))
-        x = tf.keras.layers.experimental.preprocessing.Rescaling(1./127.5, offset=-1)(inputs)
+        x = tf.keras.layers.experimental.preprocessing.Rescaling(1. / 127.5, offset=-1)(inputs)
         x = tf.keras.applications.MobileNetV2(input_shape=self.dataset.img_shape,
-                                               include_top=False,
-                                               weights='imagenet')(x, training=False)  # mobile net v2
+                                              include_top=False,
+                                              weights='imagenet')(x, training=False)  # mobile net v2
         x = tf.keras.layers.GlobalAveragePooling2D(x)  # moyenne des features
         x = tf.keras.layers.Dense(1280, activation="relu")(x)  # convolution 2d
         x = tf.keras.layers.Dropout(0.2)(x)
