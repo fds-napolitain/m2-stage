@@ -6,14 +6,14 @@ L'objectif fixé à la première visio conférence a été déterminé : faire d
 J'ai donc commencé par faire du transfer learning avec MobileNet V2, un CNN existant de Google adapté aux mobiles (c'est-à-dire, très rapide et plutôt performant) pour essayer d'adapter un modèle avec les poids ImageNet pour la classification de la qualité des photographies. Notre dataset ressemble aux images ci-dessous, avec FaceQual0-3 en label de qualité, 3 étant la meilleure qualité.
 
 \begin{center}
-\includegraphics[width=200]{imgs/qualité/cr1/dataset.png}
+\includegraphics[width=200pt]{imgs/qualité/cr1/dataset.png}
 \end{center}
 
 Les premiers résultats semblent bons à première vue : 85\% d'accuracy sur une classification simple.
 
 \begin{center}
-\includegraphics[width=200]{imgs/qualité/cr1/resultat1.png}
-\includegraphics[width=200]{imgs/qualité/cr1/prediction1.png}
+\includegraphics[width=200pt]{imgs/qualité/cr1/resultat1.png}
+\includegraphics[width=200pt]{imgs/qualité/cr1/prediction1.png}
 \end{center}
 
 Mais les résultats sont trompeurs, en effet, le jeu de données est très déséquilibré, avec 10000 images de qualité FaceQual2 et 6000 de qualité FaceQual3 contre 250 et 1000 de qualité FaceQual0 et FaceQual1. Le modèle pourrait donc prédire tout le temps FaceQual2 et avoir 57\% d'accuracy par défaut.\\
@@ -27,7 +27,7 @@ Il faut donc gérer ce déséquilibre, et deux approches nous paraissent intére
 Voici un exemple de ce que pourrait être une dégradation d'images par rapport aux premières images :
 
 \begin{center}
-\includegraphics[width=200]{imgs/qualité/cr1/augmentation1.png}
+\includegraphics[width=200pt]{imgs/qualité/cr1/augmentation1.png}
 \end{center}
 
 Évidemment on peut faire varier le niveau de floutage et de dégradation de détails. On pourrait également imaginer appliquer un fort taux de compression JPEG ou augmenter le bruit artificiellement pour obtenir des images de basse qualité réalistes (tout cela étant des facteurs de basse qualité).\\
@@ -39,16 +39,16 @@ Nous démarrons avec un transfer learning par VGG16/ImageNet suivi de deux couch
 Nous obtenons sur 10 epochs un rappel à 0.8 pour les 2 classes les plus représentés (FaceQual2/3) et 0.65 pour les autres (FaceQual0/1). Cela veut donc dire qu'une proportion correcte initiale d'échantillons est correctement classé.
 
 \begin{center}
-    \includegraphics[width=170]{imgs/qualité/cr2/vgg16_000_confusion.png}
-    \includegraphics[width=170]{imgs/qualité/cr2/vgg16_000_roc.png}
+    \includegraphics[width=170pt]{imgs/qualité/cr2/vgg16_000_confusion.png}
+    \includegraphics[width=170pt]{imgs/qualité/cr2/vgg16_000_roc.png}
 \end{center}
 
 Pour améliorer la situation, problématique sûrement à cause du déséquilibre des données, nous pouvons essayer d'abord la pondération des classes. Cela permet en effet d'améliorer largement le résultat de la classe la plus sous représentée (FaceQual0), avec un poids d'importance de 17. Seulement, une partie de l'apprentissage est troublée, d'une part car la classe FaceQual1 est partiellement confondue par la classe FaceQual0 et également du fait que beaucoup d'échantillons FaceQual2 sont classés en FaceQual0 (5\% des FaceQual2, représentant une bonne partie sachant que FaceQual2 possède énormément plus d'images).
 
 
 \begin{center}
-    \includegraphics[width=170]{imgs/qualité/cr2/vgg16_010_confusion.png}
-    \includegraphics[width=170]{imgs/qualité/cr2/vgg16_010_roc.png}
+    \includegraphics[width=170pt]{imgs/qualité/cr2/vgg16_010_confusion.png}
+    \includegraphics[width=170pt]{imgs/qualité/cr2/vgg16_010_roc.png}
 \end{center}
 
 Une piste est alors d'opérer un oversampling a priori sur la classe FaceQual0 pour avoir des poids de classes plus adéquats (moins grands). \\
@@ -56,8 +56,8 @@ Une piste est alors d'opérer un oversampling a priori sur la classe FaceQual0 p
 Une fois testé, nous trouvons un rappel supérieur à la situation initiale sans cette fois-ci occasionner de dommages collatéraux. Le poids de la classe FaceQual0 après l'oversampling par copie/dégradation des images FaceQual3 est autour de 4, soit 4 fois moins qu'avant oversampling.
 
 \begin{center}
-    \includegraphics[width=170]{imgs/qualité/cr2/vgg16_011_confusion.png}
-    \includegraphics[width=170]{imgs/qualité/cr2/vgg16_011_roc.png}
+    \includegraphics[width=170pt]{imgs/qualité/cr2/vgg16_011_confusion.png}
+    \includegraphics[width=170pt]{imgs/qualité/cr2/vgg16_011_roc.png}
 \end{center}
 
 \subsection{Base de données des métadonnées}
@@ -67,7 +67,7 @@ Alors nous nous sommes poser la question s'il pourrait être intéressant de cr�
 Pour moi, le choix le plus cohérent était de partir sur une base de données SQLite, dite "file-based" (basé seulement sur le fichier). Ainsi, cela reste relativement simple à utiliser pour un centre de recherche non spécialisé en informatique puisqu'il n'y a pas de serveur, où tout le monde n'aurait pas envie de gérer ce dernier. Ce n'est pas non plus nécessaire car il n'y a pas réellement d'accès concurrent à cette base de données : elle sert avant tout pour les modèles d'entraînement ensuite.
 
 \begin{center}
-    \includegraphics[width=345]{imgs/qualité/cr8/sqlite_schema.png}
+    \includegraphics[width=345pt]{imgs/qualité/cr8/sqlite_schema.png}
 \end{center}
 
 \subsection{Docker}
@@ -77,18 +77,18 @@ Voici donc des exemples de mes Dockerfile et docker-compose.yml : \\
 
 Dans Dockerfile, nous précisions l'image de base (un OS ou, ici, un OS et une version de Python). Ensuite nous construisons l'image, en copiant les scripts locaux et installants les dépendances enregistrés dans un fichier requirements.txt (standard pour python pip). Enfin la commande ENTRYPOINT indique le point de départ de l'application, et CMD les paramètres par défaut, qui sont eux pour leur part surchargeables.
 \begin{center}
-    \includegraphics[width=345]{imgs/qualité/cr9/dockerfile.png}
+    \includegraphics[width=345pt]{imgs/qualité/cr9/dockerfile.png}
 \end{center}
 
 Dans docker-compose.yml, nous pouvons composer des Dockerfile pour qu'ils soient dépendants les uns des autres ou simplement les lancer indépendamment des autres. Cela permet aussi de décrire les volumes / bind mounts directement dans un fichier de configuration (sans ces derniers les données seraient non persistantes).
 \begin{center}
-    \includegraphics[width=345]{imgs/qualité/cr9/compose.png}
+    \includegraphics[width=345pt]{imgs/qualité/cr9/compose.png}
 \end{center}
 
 Voici un exemple de build des images et de run de l'image db. Comme le docker-compose indique l'utilisation de bind mounts, /app/Documents/Metadata/metadata.sqlite dans le container n'est autre que le fichier [projet]/Documents/Metadata/metadata.sqlite (persistant).
 \begin{center}
-    \includegraphics[width=345]{imgs/qualité/cr9/build.png}
-    \includegraphics[width=345]{imgs/qualité/cr9/run.png}
+    \includegraphics[width=345pt]{imgs/qualité/cr9/build.png}
+    \includegraphics[width=345pt]{imgs/qualité/cr9/run.png}
 \end{center}
 
 
