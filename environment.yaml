@@ -1,7 +1,0 @@
-name: venv
-dependencies:
-  - python>=3.9
-  - miniconda
-  - pip
-  - pip:
-    - -r file:requirements.txt
