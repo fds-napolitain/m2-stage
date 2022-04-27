@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[latin]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{glossaries}
+
+\makeglossaries
+
+\graphicspath{ {./image/} }
+
+\usepackage{lmodern,tikz,lipsum}
+\newcommand\framethispage[1][2cm]{%
+    \tikz[overlay,remember picture,line width=2pt]
+    \draw([xshift=(#1),yshift=(-#1)]current page.north west)rectangle
+         ([xshift=(-#1),yshift=(#1)]current page.south east);%
+}
+
+\usepackage{wrapfig}
+\usepackage{threeparttable} 
+
+\usepackage{caption}
+\DeclareCaptionFormat{legend}{#3}
+\captionsetup{format = legend, font = it}
+
+\usepackage{lipsum}
+    
+\begin{document}
+
+\input{titlepage}
+
+\newglossaryentry{latex}
+{
+    name=latex,
+    description={Is a markup language specially suited 
+    for scientific documents}
+}
+
+\newglossaryentry{maths}
+{
+    name=mathematics,
+    description={Mathematics is what mathematicians do}
+}
+
+
+\newpage
+
+\newpage
+
+\renewcommand{\contentsname}{Table des matières}
+\tableofcontents
+
+\newpage
+
+
+\renewcommand{\listfigurename}{Table des figures}
+\listoffigures
+
+\newpage
+
+\section{Introduction}
+The \Gls{latex} typesetting markup language is specially suitable 
+for documents that include \gls{maths}. 
+
+
+\section{Présentation de l'entreprise} 
+
+\section{Présentation de la mission (facultatif, nécessaire si la présentation du sujet dans l'introduction ne suffit pas) }
+
+\section{Environnement technique} 
+
+\section{Veille technologique ou appropriation scientifique (facultatif)} 
+
+\input{parties/technique}
+
+\section{Conclusion} 
+
+\section{Glossaire}
+\clearpage
+\printglossary[title={Glossaire}]
+
+\section{Annexes} 
+
+\section*{Remerciements}
+
+Ce stage de master a été effectué dans le Laboratoire de Géopantouflisme de l’Institut de Physique du Globe de Paris, sous la direction de Napoléon Bonaparte, que je voudrais remercier pour la qualité du café qu’il sait faire. Émile Zola m’a aidé avec le logiciel LATEX de préparation de documents. Le logiciel de dessin utilisé appartient à l’Université de Cochabamba. Cette recherche a été menée à bien grâce à une bourse du Ministère des Anciens Ministres, et le microscope aquatique utilisé a été financé par le Centre National de la Recherche Parapsychologique.
+
+https://stats.stackexchange.com/questions/181/how-to-choose-the-number-of-hidden-layers-and-nodes-in-a-feedforward-neural-netw
+
+\end{document}
