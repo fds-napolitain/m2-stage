@@ -31,3 +31,5 @@ jobs:
         with:
           name: PDF
           path: main.pdf
+      - uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
