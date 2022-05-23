@@ -1,0 +1,86 @@
+\newglossaryentry{tensorflow}
+{
+    name=tensorflow,
+    description={Tensorflow est une librairie Python de Google, écrite en C++, qui permet d'écrire des réseaux de neurones avec une API assez haut niveau}
+}
+
+\newglossaryentry{ReLU}
+{
+    name=ReLU,
+    description={La fonction d'activation ReLU est une fonction composée, linéaire sur $[0, \infty]$ et nulle sur $[-\infty, 0]$. Elle est donc non linéaire et permet aux réseaux de neurones d'être plus précis}
+}
+
+\newglossaryentry{kanban}
+{
+    name=kanban,
+    description={Un kanban est un tableau où figurent multiples colonnes à étiquettes. Le développeur saisit une tâche, par exemple, dans la colonne TODO et la place dans DOING. Les autres développeurs voient alors que cette dernière est déjà en cours d'accomplissement. Enfin, une fois la tâche finie, le développeur la place dans une colonne DONE. On peut étendre ce système de méthode AGILE avec un système de peer-reviewing, où une fois une tâche accomplie, elle doit être vérifiée par un pair avant d'être réellement acceptée}
+}
+
+\newglossaryentry{matrice de confusion}
+{
+    name=matrice de confusion,
+    description={Une matrice de confusion permet d'étudier les prédictions d'un modèle. L'accuracy, seule, n'est pas assez utile pour juger un modèle de classification. Car un modèle peut, dans un contexte d'imbalance des classes, toujours prédire la même chose et avoir une excellente accuracy. La matrice de confusion affiche quant à elle l'efficacité du modèle par classe, et donc permet de savoir si le modèle est aussi efficace sur chacune d'entre elles ou non}
+}
+
+\newglossaryentry{transfer learning}
+{
+    name=transfer learning,
+    description={Le transfer learning est une méthode en machine learning pour réutiliser le travail déjà effectué. En effet, un réseau de neurones apprend à déceler des features : par exemple, la forme des yeux. Une fois entrainé, on va sauvegarder ces poids et potentiellement le distribuer sur Internet pour que d'autres puissent extraire ces features en réutilisant les poids sauvegardés. Ensuite, on peut spécialiser le réseau de neurones pour l'adapter à un problème qui serait similaire}
+}
+
+\newglossaryentry{classification}
+{
+    name=Classification,
+    description={Une classification est une résolution d'un problème en machine learning où l'on veut prédire si une donnée en entrée appartient à une classe ou une autre. C'est une sorte de régression avec une sortie discrète plutôt que continue. C'est notamment utilisée pour le tagging dans la photographie (cet animal est-il un chat ou un chien?)}
+}
+
+\newglossaryentry{docker}
+{
+    name=docker,
+    description={Docker est un logiciel qui permet de lancer un processus isolé et restreint. Ainsi, on peut utiliser Docker pour lancer des logiciels avec leurs propres versions de librairies. Par ailleurs, Docker utilise généralement Linux en OS host, donc c'est adapté à une utilisation, que ce soit en développement, production, petits ou gros systèmes..}
+}
+
+\newglossaryentry{accuracy}
+{
+    name=accuracy,
+    description={L'accuracy est une mesure qui décrit le taux de de prédictions correctes.
+    \begin{equation}
+        accuracy = \frac{nombre de prédictions correctes}{nombres d'échantillons}
+    \end{equation}}
+}
+
+\newglossaryentry{XMP}
+{
+    name=XMP,
+    description={Les métadonnées XMP sont des métadonnées liés intrinsèquement à Adobe Lightroom. Elle permet de rajouter des tags dans le champs Keywords, que l'on utilisera pour stocker tous les différents labels qui seront utilises pour nos modèles de machine learning}
+}
+
+\newglossaryentry{oversampling}
+{
+    name=oversampling,
+    description={L'oversampling est une méthode qui implique la génération d'images pour égaliser le nombre d'échantillons entre différentes classes, dans le cadre d'une classification (ou même d'un régression en théorie même s'il n'y a pas de classes). Diverses méthodes existent, et j'en ai créée une qui semble être bien adapté à notre problème en particulier, qui est décrite dans les réalisations}
+}
+
+\newglossaryentry{courbe ROC}
+{
+    name=courbe ROC,
+    description={La courbe ROC permet d'étudier ici le taux de vrais positifs en fonction du taux de faux positifs, pour chaque classe}
+}
+
+\newglossaryentry{SQLite}
+{
+    name=SQLite,
+    description={Une base de données SQLite est une base de données relationnel sans serveur (basé sur un fichier seul à la manière d'un CSV par exemple). C'est assez facile à partager ou gérer dans un laboratoire non spécialisé en informatique, tout en ayant un avantage certain en performances et robustesse comparé à une solution comme des fichiers CSV}
+}
+
+\newglossaryentry{CSV}
+{
+    name=CSV,
+    description={Un fichier comma separated values (CSV) est un tableau dont chaque colonne est séparer par une virgule, et chaque ligne par un retour à la ligne}
+}
+
+\newglossaryentry{dataset}
+{
+    name=dataset,
+    description={Un dataset est un ensemble de données. Dans notre cas, un dataset est un ensemble d'images (de mandrills) et de leurs labels associés (FaceQual pour n'en citer qu'un). En machine learning, on doit avoir les valeurs X, ici les images, et les valeurs Y, ici leur label, pour ensuite que le modèle fasse une régression de la fonction et puisse ensuite, à partir d'une nouvelle image X et de son entraînement, prédire leur label Y}
+}

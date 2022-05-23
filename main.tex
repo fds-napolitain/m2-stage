@@ -1,17 +1,34 @@
-\documentclass{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[latin]{babel}
+\usepackage[french]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{glossaries}
+\usepackage{csquotes}
+
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=ynt
+]{biblatex}
+
+\addbibresource{parties/biblio.bib}
 
 \makeglossaries
 
 \graphicspath{ {./image/} }
 
 \usepackage{lmodern,tikz,lipsum}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=1in,
+            right=1in,
+            top=1in,
+            bottom=1in,
+            footskip=.25in]{geometry}
+
 \newcommand\framethispage[1][2cm]{%
     \tikz[overlay,remember picture,line width=2pt]
     \draw([xshift=(#1),yshift=(-#1)]current page.north west)rectangle
@@ -21,9 +38,6 @@
 \usepackage{wrapfig}
 \usepackage{threeparttable} 
 
-\usepackage{caption}
-\DeclareCaptionFormat{legend}{#3}
-\captionsetup{format = legend, font = it}
 
 \usepackage{lipsum}
     
@@ -31,62 +45,138 @@
 
 \input{titlepage}
 
-\newglossaryentry{latex}
-{
-    name=latex,
-    description={Is a markup language specially suited 
-    for scientific documents}
-}
-
-\newglossaryentry{maths}
-{
-    name=mathematics,
-    description={Mathematics is what mathematicians do}
-}
-
+\input{parties/glossaire}
 
 \newpage
 
 \newpage
 
 \renewcommand{\contentsname}{Table des matières}
+
 \tableofcontents
 
 \newpage
 
 
-\renewcommand{\listfigurename}{Table des figures}
-\listoffigures
-
 \newpage
 
+\section{Remerciements}
+Je tiens à remercier Monsieur Julien Renoult, chargé de recherche au CNRS, qui a co-encadré mon stage, et m'a énormément guidé dans mes actions et m'a fait confiance tout au long de cette période.
+\newline
+
+Je remercie également M. William Puech, professeur des universités et chercheur au LIRMM, qui, en tant que co-encadrant du stage, a porté un regard critique et bienveillant sur mes travaux. Je n'oublie pas ses nombreux conseils.\newline
+
+Je remercie particulièrement Mme Claudia Ximena Restrepo-Ortiz, ingénieure en bioinformatique, ma tutrice opérationnelle sur le projet, qui a dirigé mes expérimentations de manière optimale, et m'a aidé dans ma façon de présenter les résultats des expérimentations.\newline
+
+Je remercie également Mme Sonia Mai Tieo, experte en Intelligence Artificielle au CNRS, pour ses nombreux conseils, et son aide dans l'appréhension de la discipline.\newline
+
+J'adresse également mes remerciements à ma tutrice côté Université, Mme Madalina Croitoru, avec qui je faisais des points réguliers, qui m'ont permis d'aborder ce stage en toute confiance.\newline
+
+Et enfin, je remercie mon référent pédagogique, M. Pierre Pompidor, pour son aide efficace dans les démarches de recherche de stage et son suivi. 
+\newline
+
+\newpage
 \section{Introduction}
-The \Gls{latex} typesetting markup language is specially suitable 
-for documents that include \gls{maths}. 
+Il s'agit d'un stage dans le domaine de l'intelligence artificielle, co-encadré par deux laboratoires, le LIRMM et le CEFE, grâce à une bourse de Master interdisciplinaire du projet MUSE. \newline
+
+Le projet MUSE « Montpellier Université d’Excellence » vise à faire émerger à Montpellier une université thématique de recherche intensive, internationalement reconnue pour son impact dans les domaines liés à l’agriculture, l’environnement et la santé.\newline
+
+Le stage dure du 31 février au 29 juillet 2022, il se déroule au sein du projet "Mandrillus".\newline
+
+Le projet Mandrillus, né en 2012 et dirigé par Mme Marie Charpentier (CNRS), se déroule principalement dans la réserve de Lékédi au Gabon, et a pour objectifs:
+\begin{itemize}
+    \item d'obtenir des informations sur la vie et l'écologie des Mandrills
+    \item d'aider à la protection des Mandrills
+    \item de soutenir les populations locales\newline
+\end{itemize}
 
 
+Depuis 2012, l’équipe a rassemblé plus de 30,000 portraits de mandrills issus d'une population de prêt de 300 individus. L'équipe sur le terrain produit aujourd'hui prêt de 2,000 nouvelles images par mois.\newline
+
+L'objectif de ce stage est de concevoir des algorithmes qui permettront, au final, d'automatiser la reconnaissance des individus et l'annotation des nouvelles images. Pour cela, il faut d'abord concevoir les traitements intermédiaires qui permettront d'atteindre l'objectif final:  
+\begin{itemize}
+    \item évaluation de la qualité des photos, si le mandrill présent sur cette dernière est de face ou de profil, en vue d'un tri pour des usages a posteriori.
+    \item évaluation de l'âge des mandrills à partir de leur photographie.
+    \item éventuellement, mise au propre / uniformisation du code pour une meilleur maintenance
+\end{itemize}
+\newpage
 \section{Présentation de l'entreprise} 
+
+\subsection{Le CNRS - CEFE}
+
+Le centre d'écologie fonctionnelle et évolutive (CEFE) est un centre de recherche du CNRS dédié à l'écologie. Pour citer leur résumé sur leur site web \cite{cefe}: 
+Le projet du CEFE vise à comprendre la dynamique, le fonctionnement et l’évolution du vivant, de «la bactérie à l’éléphant », et « du génome à la planète ». Il s’appuie sur trois ambitions : [1] comprendre le monde vivant pour anticiper ce que sera demain, [2] conduire à des innovations et répondre aux attentes de la société ; [3] pratiquer une science « rassembleuse » et diverse dans ses approches disciplinaires. Les questions de recherche sont posées dans un contexte marqué par la prégnance des changements planétaires, le développement de nouvelles technologies de manipulation du vivant, et l’exigence croissante de la société pour la recherche.\newline
+(...)\newline
+Le CEFE est organisé en quatre départements scientifiques entourés de plates-formes techniques communes. 
+
+\begin{itemize}
+    \item Ecologie Evolutive et Comportementale
+    \item Dynamique et Conservation de la Biodiversité
+    \item Ecologie Fonctionnelle
+    \item Interactions, Ecologie et Sociétés \\
+\end{itemize}
+
+Au sein du CEFE, l'aile E3CO (Ecologie Evolutive Empirique, Communication \& Coopération) est quant à elle consacrée à l'étude de l'écologie évolutive et comportementale, dédié aux êtres vivants.
+L'équipe dirigée par Julien Renoult travaille, entre autres, sur le projet Mandrillus, auquel j'ai participé.
+
+\subsection{Le LIRMM}
+
+Le laboratoire d'informatique, de robotique et microélectronique de Montpellier qui est une collaboration entre le CNRS et l'université de Montpellier.
+J'ai été plus précisément affecté à l'équipe ICAR, qui travaille sur la compression d'images, la sécurité et la 3D principalement.\newline
+
+L’équipe ICAR (Image \& Interaction) regroupe des chercheurs des deux départements Robotique et Informatique autour de la thématique « image » et plus généralement des données visuelles. Elle est composée actuellement de neufs permanents, universitaires et CNRS mais compte aussi dans ses collaborateurs réguliers, plusieurs médecins hospitalo-universitaires du CHU utilisant l’imagerie médicale, des chercheurs en télédétection du laboratoire TETIS ou en modélisation pour l’agronomie du CIRAD.\newline
+
+L’équipe ICAR développe des thèmes de recherche associant l’interaction et le traitement des données visuelles telles que les images 2D, 3D, multi-spectrales (nD), les vidéos ou les séquences d’images nD+t et les objets 3D que ce soit sous forme de maillages 3D ou de modélisations paramétriques.\newline
+
+L’équipe est structurée suivant 4 axes de recherche : 
+\begin{itemize}
+    \item Analyse \& traitement
+    \item Sécurité Multimédia
+    \item Modélisation \& Visualisation
+    \item Intelligence Artificielle pour les données visuelles
+\end{itemize}
+
 
 \section{Présentation de la mission (facultatif, nécessaire si la présentation du sujet dans l'introduction ne suffit pas) }
 
+
 \section{Environnement technique} 
+Je travaille sur un ordinateur fourni par le CNRS, avec, lorsque je suis au lirmm, une connexion à distance par Remote Desktop Protocol (RDP). J'utilise également mon ordinateur fixe sur lequel je me connecte en SSH. \\
+
+À mon arrivé, le contrôle de versions n'existait pas. On a donc mis en place un projet Github versionné par Git, le standard pour le contrôle de versions décentralisés. \\
+
+Pour le deep learning, Tensorflow (créé par Google) 2.X sera utilisé. C'est une des librairies majeurs en machine learning, avec PyTorch (créé par Facebook) pour concurrent. \\
+
+Le choix d'ajouter Docker dans une partie du travail permet de s'affranchir en partie du problème de l'environnement technique, c'est-à-dire que l'environnement de l'utilisateur est différent de celui de développement et de production (dans notre cas, la production ne représente pas réellement quelque chose de séparé du développement mais on peut facilement imaginer qu'on veuille utiliser un ordinateur plus puissant, voire un supercalculateur, pour entrainer le réseau de neurones. Dans ce cas là, Docker permettrait que le code fonctionne sans problèmes).
 
 \section{Veille technologique ou appropriation scientifique (facultatif)} 
+Durant la période entre les derniers partiels et le début du stage, j'ai travaillé les différents tutoriels Tensorflow, et j'ai commencé à effleurer la théorie concernant le machine learning (descente de gradient...)\newline
+
+Puis, pendant le stage, j'ai étudié des méthodes pour résoudre des problématiques spécifiques, comme le bruit de labellisation, ou encore l'ordonnancement des classes, en répertoriant des méthodes et en  mettant en pratique quelques unes. \newline
+
+J'ai réalisé un état de l'art de la prédiction de l'âge à partir d'images de face (d'humains).
 
 \input{parties/technique}
 
-\section{Conclusion} 
+\section{Conclusion}
+Le stage m'a permis d'intégrer la méthode scientifique dans mon travail : rigueur au niveau des comparaisons et résultats. C'est donc une leçon qui a une très longue portée car cela me sera utile toute ma vie et peu importe le domaine. \\
+
+Par ailleurs, j'en ai appris un peu plus sur le machine learning et les statistiques qui, là encore, présentent un intérêt dans plusieurs disciplines scientifiques. \\
+
+J'ai également utilisé mes connaissances en gestion de projet, en particulier agile, en conservant un kanban personnel, et en faisant des réunions assez régulières (mais pas de mêlées quotidiennes), ainsi qu'en gérant le projet github.
+
 
 \section{Glossaire}
 \clearpage
 \printglossary[title={Glossaire}]
 
-\section{Annexes} 
 
-\section*{Remerciements}
+\listoffigures
 
-Ce stage de master a été effectué dans le Laboratoire de Géopantouflisme de l’Institut de Physique du Globe de Paris, sous la direction de Napoléon Bonaparte, que je voudrais remercier pour la qualité du café qu’il sait faire. Émile Zola m’a aidé avec le logiciel LATEX de préparation de documents. Le logiciel de dessin utilisé appartient à l’Université de Cochabamba. Cette recherche a été menée à bien grâce à une bourse du Ministère des Anciens Ministres, et le microscope aquatique utilisé a été financé par le Centre National de la Recherche Parapsychologique.
-
-https://stats.stackexchange.com/questions/181/how-to-choose-the-number-of-hidden-layers-and-nodes-in-a-feedforward-neural-netw
+\section{Bibliographie} 
+\printbibliography[
+heading=subbibintoc,
+title={ }
+] 
 
 \end{document}
